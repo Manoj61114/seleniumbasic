@@ -4,14 +4,21 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class HomePageTest {
+public class HomePageTest extends ExplicitWait {
 
 	
 	static WebDriver driver;
-	static String path = "C:\\Users\\Name\\eclipse-workspace\\SeleniumBasicProgram\\target\\chromedriver.exe";
+	static String path = "C:\\Users\\Name\\git\\seleniumbasic\\SeleniumBasicProgram\\target\\chromedriver.exe";
 	
+	public void test() {
+		System.out.println("sh");
+	}
 	public static void main(String [] args) throws InterruptedException {
 		System.setProperty("webdriver.chrome.driver", path);
 		driver = new ChromeDriver();
@@ -27,24 +34,34 @@ public class HomePageTest {
 		{
 			System.out.println("Title is incorrect");
 		}	
-		Thread.sleep(20000);
-		String heading1 = driver.findElement(By.xpath("//span[text()='Personal']")).getText();
-		System.out.println(heading1);
-		Thread.sleep(20000);
-		System.out.println(driver.findElement(By.xpath("//span[text()='Business' and @class ='m-navLink__caption']")).getText());
-		driver.findElement(By.xpath("//span[text()='Business' and @class ='m-navLink__caption']")).click();
-		//System.out.println(head2);
+		//Thread.sleep(3000);
+		WebElement personal = driver.findElement(By.xpath("//span[text()='Personal']"));
+		System.out.println(personal.getText());
+		//ExplicitWait.explicitlyWaitClick(driver, personal);
 		
-		driver.navigate().to("https://www.rogers.com/");
-		Thread.sleep(20000);
-		driver.findElement(By.xpath("//span[text()='Sign in' and @class = 'm-navLink__caption']")).click();
+		//Thread.sleep(3000);
+		WebElement business = driver.findElement(By.xpath("//span[text()='Business' and @class ='m-navLink__caption']"));
+		System.out.println(business.getText());
 		
+		//ExplicitWait.explicitlyWaitClick(driver, business);
+		//driver.navigate().to("https://www.rogers.com/");
+		
+		Thread.sleep(3000);
+		WebElement sign = driver.findElement(By.xpath("//span[text()='Sign in' and @class = 'm-navLink__caption']"));
+		sign.click();
+		
+		
+		//new WebDriverWait(driver, 70).until(ExpectedConditions.visibilityOf(sign)).click();
+					//System.out.println(ele.getText());	
+					
 		System.out.println("Program executed sucessfully");
-		Thread.sleep(30000);
-		driver.close();
+		Thread.sleep(3000);
+		LoginTest.loginTest();
+		//driver.close();
+		
 		
 
 	}
-	
-	
+
+		
 }
